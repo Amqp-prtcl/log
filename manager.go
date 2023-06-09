@@ -30,12 +30,16 @@ type managerEntry struct {
 	done  chan struct{}
 }
 
-func newManager() *manager {
+// use c = -1 for default buffer capacity (10)
+func newManager(c int) *manager {
+	if c == -1 {
+		c = 10
+	}
 	m := &manager{
 		outputs: []Output{},
 		mu:      sync.Mutex{},
 		b:       atomic.Value{},
-		ch:      make(chan managerEntry, 10),
+		ch:      make(chan managerEntry, c),
 	}
 	m.b.Store(false)
 	go func(m *manager) {

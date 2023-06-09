@@ -20,7 +20,18 @@ type Logger struct {
 // so callers need to add Outputs in order to make it do something useful.
 func NewLogger() Logger {
 	return Logger{
-		m:      newManager(),
+		m:      newManager(-1),
+		block:  false,
+		prefix: []string{},
+		fields: M{},
+	}
+}
+
+// same as NewLogger() but allows to overwrite the logManager's buffer capacity
+// (the default is 10). The capacity represents the maximum
+func NewLoggerWithCapacity(c int) Logger {
+	return Logger{
+		m:      newManager(c),
 		block:  false,
 		prefix: []string{},
 		fields: M{},
