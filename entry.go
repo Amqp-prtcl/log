@@ -69,7 +69,7 @@ func (entry *LogEntry) AddCompiled(flags int, outputType OutputType, Buf *[]byte
 	})
 }
 
-// GetCompiled checks if a buffer has already been saved into entry with
+// GetCompiled checks if a buffer has already been saved into an entry with
 // provided flags and output type.
 //
 // buf is non-nil, if and only if, ok is true

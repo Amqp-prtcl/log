@@ -7,15 +7,15 @@ import (
 
 // Output represents a log writer.
 //
-// Once registered in a logger, each log call to the logger wil trigger
-// a the Log method of the Outputs
+// Once registered in a logger, each log call to the logger will trigger
+// the Log method of the Outputs
 type Output interface {
 	//it is called each time the output is added to a log manager
 	//
 	// it is used to know how many close calls there needs to be
 	// before actually closing io.Writer
 	//
-	// NOTE: CLose can be called before any OnAdd call (if manually closed before adding it to any logger)
+	// NOTE: Close can be called before any OnAdd call (if manually closed before adding it to any logger)
 	OnAdd()
 
 	// error must be related to io
@@ -59,7 +59,8 @@ type outputWrapper struct {
 
 // NewOutputWrapper return a wrapper for the logFunc and closeFunc callback with provided parameters
 //
-// closeFunc is only called once the Output is removed from every log manager it has been added
+// closeFunc is only called once the Output is removed from every log manager it has been added and is
+// responsible for closing the io.Writer. The bool argument is the close bool parameter of NewOutputWrapper
 func NewOutputWrapper(w io.Writer, close bool, flags int, output OutputType, logLevel LogLevel, logFunc func(*[]byte, *LogEntry, int, io.Writer) error, closeFunc func(io.Writer, bool) error) Output {
 	return &outputWrapper{
 		w:         w,

@@ -5,7 +5,7 @@ type LogLevel int
 func (l LogLevel) String() string {
 	switch l {
 	case 0:
-		return "DEGUB"
+		return "DEBUG"
 	case 1:
 		return "INFO"
 	case 2:
@@ -40,7 +40,7 @@ func (l LogLevel) Permits(level LogLevel) bool {
 // OutputType represents a type configuration used by log calls
 // to save already compiled buffers
 //
-// New custom OutpytType can be created by packages to be used by
+// New custom OutputType can be created by packages to be used by
 // custom outputs
 type OutputType int
 
